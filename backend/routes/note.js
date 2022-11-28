@@ -47,4 +47,35 @@ router.post('/addnote', fetchuser,[
     res.status(500).send("Internal Server Error");
 }
 })
+
+
+//Route 3: Udpdate an existing notes using :PUT 'api/notes/updatenote/'.  Login required
+router.put('/updatenote/:id', fetchuser, async (req, res)=>{
+    const {title, description, tag} = req.body
+      
+    //Create a newNote object
+    const newNote = {}
+    if(title){newNote.title = title}
+    if(description){newNote.description = description}
+    if(tag){newNote.tag = tag}
+
+    //Find the note to be updated and update it!
+    let note = await Note.findById(req.params.id);
+    //if user requesting note id and it will be not matched then send status 404.
+    if(!note){return res.status(404).send("Not found!")}   
+    
+    //If any user trying to access and update other user note then 401(not allowed) status will be shown. 
+     if(note.user.toString() !== req.user.id){
+        return res.status(401).send("Not Allowed!");
+     }
+
+     // If user trying to find own existing note for updation.
+     note = await Note.findByIdAndUpdate(req.params.id, {$set: newNote}, {new: true});
+     res.json(note);
+
+
+});
+
+
+
 module.exports = router
