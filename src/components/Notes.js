@@ -57,24 +57,26 @@ function Notes() {
             name='etitle'
             onChange={onChange}
             value= {note.etitle}
+            minLength= {3}
+            required
           />
         </div>
         <div className="mb-3">
           <label htmlFor="edescription" className="form-label">
             Description
           </label>
-         <input type="text" name='edescription' className='form-control' id='edescription' onChange={onChange} value= {note.edescription} />
+         <input type="text" name='edescription' className='form-control' id='edescription' onChange={onChange} value= {note.edescription} minLength={5} required />
         </div>
         <div className="mb-3">
           <label htmlFor="etag" className="form-label">
           Tag
           </label>
-         <input type="text" name='etag' className='form-control' id='etag' onChange={onChange} value= {note.etag}  />
+         <input type="text" name='etag' className='form-control' id='etag' onChange={onChange} value= {note.etag}   required  />
         </div>
       </div>
       <div className="modal-footer">
         <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary" onClick={handleClick} >Save changes</button>
+        <button disabled = {note.etitle.length < 5 || note.edescription.length < 5} type="button" className="btn btn-primary" onClick={handleClick} >Save changes</button>
       </div>
     </div>
   </div>
@@ -82,6 +84,9 @@ function Notes() {
 
     <div className="container row">
     <h2>Your Notes</h2>
+    <div className="container">
+      {notes.length === 0 && "You don't have any notes yet. Start to create your notes."}
+    </div>
     {notes.map((note)=>{
       return <Noteitem note = {note} key={note._id} updateNote = {updateNote}/>
 

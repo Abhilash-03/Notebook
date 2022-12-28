@@ -5,7 +5,7 @@ function AddNote() {
     const context = useContext(noteContext);
     const {addNote} = context;
 
-    const [note, setNote] = useState({title: "", description: "", tag: "default"});
+    const [note, setNote] = useState({title: "", description: "", tag: ""});
 
     const onChange = (e)=>{
         setNote({...note, [e.target.name]: e.target.value})
@@ -14,6 +14,7 @@ function AddNote() {
     const handleClick =(e)=>{
         e.preventDefault();
         addNote(note.title, note.description, note.tag)
+        setNote({title: "", description: "", tag: ""})
     }
   return (
     
@@ -29,17 +30,25 @@ function AddNote() {
             className="form-control"
             id="title"
             name='title'
-            placeholder="Write somthing..."
+            placeholder="Write something..."
             onChange={onChange}
+            minLength={3} required
+            value={note.title}
           />
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
           </label>
-         <input type="text" name='description' className='form-control' id='description' onChange={onChange} />
+         <input type="text" name='description' value={note.description} className='form-control' id='description' onChange={onChange} minLength={5} required/>
         </div>
-        <button type='submit' className='btn btn-primary' onClick={handleClick}>Add note</button>
+        <div className="mb-3">
+          <label htmlFor="tag" className="form-label">
+          Tag
+          </label>
+         <input type="text" name='tag' className='form-control' value={note.tag} id='tag' onChange={onChange} required />
+        </div>
+        <button disabled = {note.title.length < 5 || note.description.length < 5} type='submit' className='btn btn-primary' onClick={handleClick} >Add note</button>
         </form>
       </div>
     
