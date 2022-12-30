@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
   const host = "http://localhost:5000";
 
   const [credentials, setCredentials] = useState({email:"", password:""});
@@ -28,9 +28,10 @@ const Login = () => {
       //Save the auth-token and redirect
        localStorage.setItem('token', json.authtoken);
        navigate('/');
+       props.showAlert("Logged-in Successfully", "success");
     }
     else{
-      alert("Please try with correct email and password.")
+      props.showAlert("Please try with correct email and password", "danger")
     }
 
   }
@@ -40,6 +41,7 @@ const Login = () => {
 }
 
   return (
+    <div className="container my-3">
     <form onSubmit={handleSubmit}>
   <div className="mb-3">
     <label htmlFor="email" className="form-label">Email address</label>
@@ -53,6 +55,7 @@ const Login = () => {
   
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
+</div>
   )
 }
 

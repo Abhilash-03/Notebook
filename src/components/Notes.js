@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import AddNote from "./AddNote";
 import Noteitem from "./Noteitem";
 
-function Notes() {
+function Notes(props) {
     const context = useContext(noteContext);
     const {notes, getNotes, editNote} = context;
     
@@ -30,10 +30,11 @@ function Notes() {
     const handleClick =(e)=>{
        editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click()
+        props.showAlert("Updated Successfully", "success");
     }
   return (
     <>
-    <AddNote/> 
+    <AddNote showAlert={props.showAlert} /> 
 <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
  
 </button>
@@ -88,7 +89,7 @@ function Notes() {
       {notes.length === 0 && "You don't have any notes yet. Start to create your notes."}
     </div>
     {notes.map((note)=>{
-      return <Noteitem note = {note} key={note._id} updateNote = {updateNote}/>
+      return <Noteitem note = {note} key={note._id} updateNote = {updateNote} showAlert={props.showAlert} />
 
     })}
   </div>

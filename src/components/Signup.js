@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const Signup = (props) => {
   const host = "http://localhost:5000";
 
   const [credentials, setCredentials] = useState({name: "", email:"", password:"", cpassword: ""});
@@ -29,9 +29,12 @@ const Signup = () => {
       //Save the auth-token and redirect
        localStorage.setItem('token', json.authtoken);
        navigate('/');
+       props.showAlert("Account Created Successfully", "success");
+
     }
     else{
-      alert("Please try with correct email and password.")
+      props.showAlert("Invalid Credentials", "danger")
+
     }
     
 
@@ -42,7 +45,7 @@ const Signup = () => {
 }
 
   return (
-    <div className='container'>
+    <div className='container my-3'>
      <form onSubmit={handleSubmit }>
   <div className="mb-3">
     <label htmlFor="name" className="form-label">Name</label>
