@@ -27,7 +27,7 @@ const Signup = (props) => {
 
     if(json.success){
       //Save the auth-token and redirect
-       localStorage.setItem('token', json.authtoken);
+       localStorage.setItem('token', json.authToken);
        navigate('/');
        props.showAlert("Account Created Successfully", "success");
 
@@ -47,6 +47,7 @@ const Signup = (props) => {
   return (
     <div className='container my-3'>
      <form onSubmit={handleSubmit }>
+      <h2 className="mt-3">Signup for create an account</h2>
   <div className="mb-3">
     <label htmlFor="name" className="form-label">Name</label>
     <input type="text" className="form-control" id="name" name='name' aria-describedby="emailHelp" onChange={onChange} />

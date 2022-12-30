@@ -14,8 +14,7 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM4NGQ4YmQwNDVlYjg2MjJkYjZhZjExIn0sImlhdCI6MTY2OTY1MjA1OX0.u0UeBucOsIu0ru-blpjABb7RveHeWGnTYweUTPrVFBs",
+        "auth-token": localStorage.getItem('token')
       },
     });
     const json = await response.json();
@@ -30,8 +29,7 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM4NGQ4YmQwNDVlYjg2MjJkYjZhZjExIn0sImlhdCI6MTY2OTY1MjA1OX0.u0UeBucOsIu0ru-blpjABb7RveHeWGnTYweUTPrVFBs",
+        "auth-token": localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag }),
     });
@@ -47,13 +45,12 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM4NGQ4YmQwNDVlYjg2MjJkYjZhZjExIn0sImlhdCI6MTY2OTY1MjA1OX0.u0UeBucOsIu0ru-blpjABb7RveHeWGnTYweUTPrVFBs",
+        "auth-token": localStorage.getItem('token')
       },
     });
 
     const json = await response.json();
-   
+   console.log(json);
 
     const newNotes = notes.filter((note) => {
       return note._id !== id;
@@ -69,13 +66,12 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM4NGQ4YmQwNDVlYjg2MjJkYjZhZjExIn0sImlhdCI6MTY2OTY1MjA1OX0.u0UeBucOsIu0ru-blpjABb7RveHeWGnTYweUTPrVFBs",
+        "auth-token": localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag }),
     });
     const json = await response.json();
-   
+   console.log(json);
 
     const newNotes = JSON.parse(JSON.stringify(notes));
 
